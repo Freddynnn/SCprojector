@@ -48,7 +48,7 @@ Once loaded, the extension will be active in your browser and will integrate dir
 ## Real Time Price Projections
 Usign recent performance and user-inputted scoring predictions, SCprojector is able to return projected prices, price rises and Breakevens, based formulae and projection models derived from previous Supercoach seasons. 
 <div style="display: flex; justify-content: space-around;">
-    <img src="public/SCprojGif1.gif" alt="Projector usage gif" width="600" height="450">
+    <img src="public/SCproj_GIF1.gif" alt="Projector usage gif" width="600" height="450">
 </div>
 <br>
 This is integrated directly into the Supercoach interface, providing an intuitive and unobtrusive experience. Further updates involving trade planning interfaces based on said price projections are in the works!
