@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "SCprojector",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "An extension for SuperCoach users to project future player prices. More updates on the way too!",
     "author": "freddy.tnn@gmail.com",
 

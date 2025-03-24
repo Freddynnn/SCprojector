@@ -808,7 +808,7 @@ function updateFixtureRows(rows){
 
                 let prev_score1 = player_scores[index-2];
                 let prev_score2 = player_scores[index-1];
-                let prev_price = player_prices[index-index_offset];
+                let prev_price = player_prices[index-1];
                 console.log(`player_prices: ${player_prices}`);
                 
                 // curr_magic_num = CalculateMagicNumber(prev_score1, prev_score2, prev_price, curr_BE);
@@ -830,7 +830,7 @@ function updateFixtureRows(rows){
                 add_proj_price(price_element, new_price);
                 player_prices.push(new_price);
 
-                add_ppc(ppc_element, new_price, player_prices[index-index_offset]);
+                add_ppc(ppc_element, new_price, player_prices[index-1]);
 
                 const new_BE = CalculateBE(prev_score1, prev_score2, new_price);
                 console.log(`New BE calculated: ${new_BE}`);
