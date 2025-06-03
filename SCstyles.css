@@ -24,6 +24,101 @@ input[type="number"]::-webkit-inner-spin-button {
     transform: scale(0.8, 1);
 }
 
+.settings-dropdown {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 96%;
+    /* height: 90px; */
+
+    .mn-toggle-container {
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: 1rem;
+        padding: 5px 10px;
+        gap: 8px;
+    }
+
+    .mn-checkbox {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        accent-color: rgb(160, 212, 76);
+        border: 2px solid gray;
+        border-radius: 4px;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .mn-checkbox:checked {
+        border-color: rgb(120, 180, 50);
+        background-color: rgb(160, 212, 76);
+    }
+
+    .mn-checkbox:active {
+        transform: scale(0.9);
+    }
+
+    /* Magic Number Input Container */
+    .mn-input-container {
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: 1rem;
+        padding: 5px 10px;
+        gap: 8px;
+    }
+
+    .mn-input {
+        width: 60px; /* Adjust width as needed */
+        padding: 4px;
+        font-size: 14px;
+        border: 2px solid gray;
+        border-radius: 4px;
+        transition: border-color 0.2s ease-in-out;
+    }
+
+    .mn-input:focus {
+        border-color: rgb(160, 212, 76);
+        outline: none;
+    }
+
+   /* Reset Button */
+    .reset-button {
+        cursor: pointer;
+        background-color: rgb(160, 212, 76); 
+        border-radius: 10px; 
+        padding: 5px 12px; 
+        color: white; 
+        transition: background-color 0.2s ease, transform 0.1s ease; 
+        /* margin-right: 8px;  */
+        font-size: 14px; 
+        display: inline-flex; 
+        align-items: center; 
+        justify-content: center; 
+    }
+
+    .reset-button:hover {
+        background-color: rgb(120, 180, 50);
+    }
+
+    .reset-button:active {
+        transform: scale(0.95); 
+    }
+
+    .reset-button i { 
+        font-size: 10px; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+}
+
+
+
 
 .proj-header-container {
     display: inline-flex;
@@ -31,39 +126,14 @@ input[type="number"]::-webkit-inner-spin-button {
     justify-content: flex-end; 
     width: 48%;
     height: 40px;
-    /* border: 1px solid rgb(200, 40, 40) !important;
-    border-radius: 10% !important; */
-    background-color: white;
+    /* border: 1px solid rgb(200, 40, 40) !important; */
+    border-radius: 15px !important;
+    background-color: transparent !important;
     padding: 5px;
     box-sizing: border-box;
     /* transform: translateY(-10%);  */
 
-    .mn-toggle-button {
-        font-size: 10px;
-        margin-right: 5px;
-
-        /* padding: 8px 12px; */
-        border-radius: 10px;
-        width: 50px;
-        height: 100% !important;
-
-        cursor: pointer;
-        background-color: gray; 
-        color: white;
-        transition: background-color 0.2s ease-in-out;
-        /* display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center; */
-    }
-    
-    .mn-toggle-button.active {
-        background-color: rgb(160, 212, 76); /* Green when true */
-        border-color: rgb(120, 180, 50);
-    }
-    .mn-toggle-button:active {
-        transform: scale(0.95); 
-    }
+   
     
     
     .proj-title{
@@ -73,6 +143,8 @@ input[type="number"]::-webkit-inner-spin-button {
     }
     .set-all-input {
         font-size: 12px;
+        /* color:  rgba(47, 75, 8, 0.795) !important;  */
+        background-color: rgba(184, 227, 124, 0.65) !important; 
         width: 40px;
         height: 100% !important;
         border: none !important;
@@ -81,6 +153,23 @@ input[type="number"]::-webkit-inner-spin-button {
         border-radius: 5px !important;
         text-align: center;
         margin-right: 6px; 
+    }
+
+    .settings-button {
+        cursor: pointer;
+        border-radius: 10px;
+        padding: 5px;
+        color: white;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+        margin-right: 16px; 
+
+        fa-icon {
+            font-size: 6px !important; 
+            display: flex;
+            align-items: center;  
+            justify-content: center;  
+        }
+        
     }
 
     .clear-button {
@@ -100,6 +189,8 @@ input[type="number"]::-webkit-inner-spin-button {
         }
         
     }
+
+    
 
     .projection-button {
         cursor: pointer;
@@ -165,9 +256,11 @@ input[type="number"]::-webkit-inner-spin-button {
     height: 80% !important;
     z-index: 100;
     
-    background: white !important; 
+    /* color: rgb(47, 47, 47) !important; */
+    background-color: rgba(184, 227, 124, 0.65) !important; 
     text-align: center;
     font-size: inherit; 
+    
     
     border: 1px solid rgb(160, 212, 76) !important;
     border-radius: 10% !important;
@@ -183,7 +276,7 @@ input[type="number"]::-webkit-inner-spin-button {
     position: absolute; 
     top: 0; 
     left: 0; 
-    background-color: white; 
+    background-color: transparent !important;
     z-index: 9999; 
     padding: 2px; 
     border-radius: 5px;

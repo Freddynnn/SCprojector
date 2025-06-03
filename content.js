@@ -5,6 +5,7 @@ let proj_points_replaced = false;
 let proj_header_added = false;
 let rd0_header_added = false;
 let MN_approximation_true = false;
+let settings_toggled_true = false;
 
 let plays_rd0 =false;
 let rd0Opponent = '';
@@ -158,19 +159,101 @@ function add_proj_headers(targetDiv) {
         targetDiv.appendChild(headerContainer);
         proj_header_added = true;
 
-        // Create MN Approximation toggle button
-        const mnToggleButton = document.createElement('button');
-        mnToggleButton.textContent = 'MN APPROX';
-        mnToggleButton.classList.add('mn-toggle-button');
-        mnToggleButton.classList.toggle('active', MN_approximation_true);
-        mnToggleButton.style.backgroundColor = MN_approximation_true ? 'rgb(160, 212, 76)' : 'gray';
+        // Create Settings button
+        const settingsButton = document.createElement('button');
+        const settingsIcon = document.createElement('i');
+        settingsIcon.className = 'fa-solid fa-gear';
+        settingsButton.appendChild(settingsIcon);
+        settingsButton.classList.add('settings-button');
+        settingsButton.classList.toggle('active', settings_toggled_true);
+        settingsButton.style.backgroundColor = settings_toggled_true ? 'rgb(160, 212, 76)' : 'gray';
+        
+        // Create dropdown container
+        const settingsDropdown = document.createElement('div');
+        settingsDropdown.classList.add('settings-dropdown', 'SCproj-injected');
+        settingsDropdown.style.maxHeight = '0px'; // Start collapsed
+        settingsDropdown.style.overflow = 'hidden';
+        settingsDropdown.style.transition = 'max-height 0.3s ease-in-out';
 
-        mnToggleButton.addEventListener('click', () => {
-            MN_approximation_true = !MN_approximation_true;
-            mnToggleButton.classList.toggle('active', MN_approximation_true);
-            mnToggleButton.style.backgroundColor = MN_approximation_true ? 'rgb(160, 212, 76)' : 'gray';
+        // Toggle dropdown visibility & settings button colour
+        settingsButton.addEventListener('click', () => {
+            settings_toggled_true = !settings_toggled_true;
+            settingsButton.classList.toggle('active', settings_toggled_true);
+            settingsButton.style.backgroundColor = settings_toggled_true ? 'rgb(160, 212, 76)' : 'gray';
+            console.log(`settings_toggled_true set to: ${settings_toggled_true}`);
+
+            if (settingsDropdown.style.maxHeight === '0px') {
+                settingsDropdown.style.maxHeight = settingsDropdown.scrollHeight + 15 + 'px';
+            } else {
+                settingsDropdown.style.maxHeight = '0px';
+            }
+        });
+
+        // Create container for the label and checkbox
+        const mnToggleContainer = document.createElement('div');
+        mnToggleContainer.classList.add('mn-toggle-container');
+
+        // Create label
+        const mnLabel = document.createElement('label');
+        mnLabel.textContent = 'Magic Number Approximation: ';
+        mnLabel.classList.add('mn-label');
+
+        // Create checkbox
+        const mnCheckbox = document.createElement('input');
+        mnCheckbox.type = 'checkbox';
+        mnCheckbox.checked = MN_approximation_true;
+        mnCheckbox.classList.add('mn-checkbox');
+
+        // Toggle state when checkbox changes
+        mnCheckbox.addEventListener('change', () => {
+            MN_approximation_true = mnCheckbox.checked;
             console.log(`MN_approximation_true set to: ${MN_approximation_true}`);
         });
+
+        // Append elements to the container
+        mnToggleContainer.appendChild(mnLabel);
+        mnToggleContainer.appendChild(mnCheckbox);
+
+        // MAGIC NUMBER INPUT
+        // Create container for Magic Number input
+        const mnInputContainer = document.createElement('div');
+        mnInputContainer.classList.add('mn-input-container');
+
+        // Create label
+        const mnInputLabel = document.createElement('label');
+        mnInputLabel.textContent = 'Magic Number: ';
+        mnInputLabel.setAttribute('for', 'mn-input');
+
+        // Create Magic Number Input Field
+        const mnInput = document.createElement('input');
+        mnInput.type = 'number';
+        mnInput.id = 'mn-input';
+        mnInput.placeholder = 'Enter value';
+        mnInput.classList.add('mn-input');
+        mnInput.value = curr_magic_num || 0;
+        mnInput.addEventListener('input', () => {
+            curr_magic_num = parseInt(mnInput.value) || 0;
+            // console.log(`Magic Number updated to: ${curr_magic_num}`);
+        });
+
+        
+
+        // Create Reset Button (X)
+        const resetButton = document.createElement('button');
+        resetButton.textContent = 'X';
+        resetButton.classList.add('reset-button');
+        resetButton.addEventListener('click', () => {
+            curr_magic_num = base_magic_num; // Reset to the base magic number
+            mnInput.value = curr_magic_num; // Update input field with the base value
+            // console.log(`Magic Number reset to base value: ${curr_magic_num}`);
+        });
+
+        // Append elements
+        mnInputContainer.appendChild(mnInputLabel);
+        mnInputContainer.appendChild(mnInput);
+        mnInputContainer.appendChild(resetButton); // Add the reset button
+
+
  
 
         // Adding the input field  
@@ -227,10 +310,15 @@ function add_proj_headers(targetDiv) {
 
 
         // append the children element
-        headerContainer.appendChild(mnToggleButton);
+        settingsDropdown.appendChild(mnToggleContainer);
+        settingsDropdown.appendChild(mnInputContainer);
+
+        headerContainer.appendChild(settingsButton);
         headerContainer.appendChild(inputField);
         headerContainer.appendChild(clearButton);
         headerContainer.appendChild(projButton);
+        targetDiv.appendChild(settingsDropdown);
+
     }
 }
 
@@ -353,6 +441,40 @@ function add_proj_points(element, index) {
     input.tabIndex = 0;
     input.style.userSelect = 'text';
 
+    
+    // // Create "X" button
+    // const resetButton = document.createElement('button');
+    // resetButton.textContent = 'X';
+    // resetButton.classList.add('reset-button');
+    // resetButton.style.position = 'relative'; // Ensure it respects z-index
+    // resetButton.style.zIndex = '999'; // Bring it to the front
+    // resetButton.style.background = 'red'; // Just to make it clearly visible
+    // resetButton.style.cursor = 'pointer';
+    // resetButton.style.border = 'none';
+    // resetButton.style.background = 'gray';
+    // resetButton.style.color = 'white';
+    // resetButton.style.fontSize = '12px';
+    // resetButton.style.borderRadius = '5px';
+    // resetButton.style.padding = '2px 5px';
+    // resetButton.style.transition = 'background-color 0.2s ease-in-out';
+
+    // // Handle greying out input and skipping calculations
+    // resetButton.addEventListener('click', () => {
+    //     if (!input.disabled) {
+    //         input.disabled = true;
+    //         input.value = '-';
+    //         input.style.background = 'lightgray';
+    //         input.style.color = 'gray';
+    //         player_scores[index] = null; // Mark as skipped in calculations
+    //     } else {
+    //         input.disabled = false;
+    //         input.value = ''; // Reset input
+    //         input.style.background = 'transparent';
+    //         input.style.color = 'black';
+    //         player_scores[index] = parseInt(input.value) || 0;
+    //     }
+    // });
+
     // Event listeners
     input.addEventListener('keydown', (event) => {
         let currentValue = parseInt(input.value) || 0;
@@ -397,8 +519,13 @@ function add_proj_points(element, index) {
     wrapper.style.height = '100%';
     wrapper.style.display = 'flex';
     wrapper.style.alignItems = 'center';
-    wrapper.appendChild(input);
+    wrapper.style.justifyContent = 'space-between'; 
+    wrapper.style.gap = '8px'; 
     
+    // Add input and reset button to the wrapper
+    wrapper.appendChild(input);
+    // wrapper.appendChild(resetButton);
+
     // Add wrapper to the element
     element.appendChild(wrapper);
     
@@ -622,17 +749,6 @@ function updateProjectionTable(update_prices) {
             
             const rows = container.querySelectorAll('[role="row"]');
             rows.length > 0 ? (() => {
-
-                // // use rows[0]'s Breakeven & out yearTable data to calculate current magic number
-                // const curr_BE_element = rows[0].querySelector('[col-id="be"] div');
-                // if (curr_BE_element && curr_BE_element.childNodes.length > 0) {
-                //     curr_BE = parseInt(curr_BE_element.childNodes[0].textContent.trim());
-                //     // curr_magic_num = CalculateMagicNumber(player_scores[0], player_scores[1], player_prices[0], curr_BE);
-                //     console.log('curr_BE: ', curr_BE);
-                //     console.log('calculated curr_magic_num: ', curr_magic_num);
-                // } else {
-                //     console.log('First BE element or its child node not found.');
-                // }
                 if (!proj_points_replaced) {
                     initialFixtureUpdate(fixtureGrid, rows);
 
@@ -640,10 +756,13 @@ function updateProjectionTable(update_prices) {
                     updateFixtureRows(rows);
                 }
 
+               
+
             })() : console.log('No rows found in the container.');
         })() : console.warn('Container element with class "ag-center-cols-container" not found.');
     })() : proj_points_replaced = false;
 }
+
 
 
 // main setup function of adding input and player_score logic
@@ -659,6 +778,76 @@ function initialFixtureUpdate(fixtureGrid, rows){
             // Check if the first projected score is a valid number
             if (!isNaN(firstProjectedScore)) {
                 console.log(`Valid first projected score found: ${firstProjectedScore}`);
+
+                let index_offset = games_played;
+                rows.forEach((row, index) => {
+                    
+                    //TODO: Row indexing on projection table will need to have the index incremented:
+                    // -- by 1 if the player plays rd0  
+                    // -- by player_scores.length after the past scores are initialized in the YTD table
+                    index += index_offset;
+                
+                    // replace the projection elements with our custom input elements
+                    const ppts_element = row.querySelector('[col-id="ppts"]');
+                    if (ppts_element) {
+                        const projected_score = parseInt(ppts_element.innerText);
+            
+                        // Check if the parsed value is a valid number (NaN check)
+                        if (!isNaN(projected_score)) {
+                            // console.log(`Row Index: ${index}, Projected Points: ${projected_score}`);
+                
+                            original_projected_scores.push(projected_score);
+                            add_proj_points(ppts_element, player_scores.length); 
+                            player_scores.push(projected_score); 
+                            proj_points_replaced = true;
+            
+                
+                        } else {
+                            console.log(`Invalid projected points at row ${index}: ${ppts_element.innerText}`);
+                        }
+            
+            
+                    } else {
+                        console.log(`Projected Points or Price Element not found in row ${index}`);
+                    }
+                });
+            
+                // Use rows[0]'s Breakeven & out yearTable data to calculate current magic number
+                const curr_BE_element = rows[0].querySelector('[col-id="be"] div');
+
+                if (curr_BE_element && curr_BE_element.childNodes.length > 0) {
+                    const beText = curr_BE_element.childNodes[0].textContent.trim();
+                    const beValue = parseInt(beText);
+
+                    if (!isNaN(beValue) && 
+                        !isNaN(player_scores[games_played - 2]) && 
+                        !isNaN(player_scores[games_played - 1]) && 
+                        !isNaN(player_prices[games_played - 1])) {
+
+                        curr_BE = beValue;
+                        console.log('first reading of curr_BE: ', curr_BE);
+                        player_BEs.push(curr_BE);
+
+                        const calculatedMagicNum = CalculateMagicNumber(
+                            player_scores[games_played - 2], 
+                            player_scores[games_played - 1], 
+                            player_prices[games_played - 1], 
+                            curr_BE
+                        );
+
+                        if (!isNaN(calculatedMagicNum)) {
+                            curr_magic_num = calculatedMagicNum;
+                            base_magic_num = calculatedMagicNum;
+                            console.log('calculated curr_magic_num: ', curr_magic_num);
+                        } else {
+                            console.log('Calculated magic number is NaN, keeping previous value.');
+                        }
+                    } else {
+                        console.log('One or more required values are invalid, keeping curr_magic_num unchanged.');
+                    }
+                } else {
+                    console.log('First BE element or its child node not found, keeping curr_magic_num unchanged.');
+                }
 
                 
                 // ROUND 0 HEADERS NO LONGER NEEDED
@@ -718,46 +907,21 @@ function initialFixtureUpdate(fixtureGrid, rows){
         console.warn('Skipping header additions: No rows found.');
     }
 
-    // let index_offset = plays_rd0 ? 1 : 0;
-    let index_offset = games_played;
-    // need to increment this by games played
-    rows.forEach((row, index) => {
-        
-        //TODO: Row indexing on projection table will need to have the index incremented:
-        // -- by 1 if the player plays rd0  
-        // -- by player_scores.length after the past scores are initialized in the YTD table
-        index += index_offset;
-    
-        // replace the projection elements with our custom input elements
-        const ppts_element = row.querySelector('[col-id="ppts"]');
-        if (ppts_element) {
-            const projected_score = parseInt(ppts_element.innerText);
 
-            // Check if the parsed value is a valid number (NaN check)
-            if (!isNaN(projected_score)) {
-                // console.log(`Row Index: ${index}, Projected Points: ${projected_score}`);
-    
-                original_projected_scores.push(projected_score);
-                add_proj_points(ppts_element, player_scores.length); 
-                player_scores.push(projected_score); 
-                proj_points_replaced = true;
-
-    
-            } else {
-                console.log(`Invalid projected points at row ${index}: ${ppts_element.innerText}`);
-            }
-
-
-        } else {
-            console.log(`Projected Points or Price Element not found in row ${index}`);
-        }
-    });
+  
 }
+
+
 
 // function called when we project scores to update the table's projected data
 function updateFixtureRows(rows){
     // clear the player prices but keep reference
-    // player_prices.length = 0;
+    player_prices.length = games_played;
+    
+    // clear player BEs, but keeping the currBE as reference
+    player_BEs.length = 1;
+
+    //adding to the player_prices endlessly
     
     // if we have a previous score & price from rd0 or being into the season, then use index_offset
     // let index_offset = (plays_rd0 || nextRdNumber > 1) ? 1 : 0;
@@ -790,7 +954,7 @@ function updateFixtureRows(rows){
         
         let player_price = price_element ? parseFloat(price_element.innerText.replace(/[^\d.]/g, '')) : 0;
         let player_price_int = parseInt(player_price*1000);
-        console.log('Player Price (int):', player_price_int);
+        console.log('New player price:', player_price_int);
 
         
         if (ppts_element && price_element && BE_element) {
@@ -832,10 +996,13 @@ function updateFixtureRows(rows){
 
                 add_ppc(ppc_element, new_price, player_prices[index-1]);
 
-                const new_BE = CalculateBE(prev_score1, prev_score2, new_price);
+                console.log(`player_BEs before adding:  ${player_BEs}`);
+                const new_BE = CalculateBE(projected_score, prev_score2, new_price);
                 console.log(`New BE calculated: ${new_BE}`);
-                add_BE(BE_element, new_BE);
+                add_BE(BE_element, player_BEs[player_BEs.length-1]);
                 player_BEs.push(new_BE);
+                console.log(`player_BEs after adding:  ${player_BEs}`);
+
                 
             }
         } else {
@@ -876,11 +1043,14 @@ function resetPlayerBools(){
     proj_button_added = false;
     proj_header_added = false;
     rd0_header_added = false;
+    MN_approximation_true = false;
+    settings_toggled_true = false;
     plays_rd0 =false;
     rd0Opponent = '';
     games_played = 0;
     player_scores.length=0;
     player_prices.length=0;
+    player_BEs.length=1;
     original_projected_scores.length=0;
 }
 
