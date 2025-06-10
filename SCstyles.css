@@ -20,9 +20,8 @@
     border: 1px solid rgb(160, 212, 76) !important;
 } */
 
-input[type="number"]::-webkit-inner-spin-button {
-    transform: scale(0.8, 1);
-}
+
+
 
 .settings-dropdown {
     display: inline-flex;
@@ -118,8 +117,6 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 
-
-
 .proj-header-container {
     display: inline-flex;
     align-items: center; 
@@ -133,19 +130,18 @@ input[type="number"]::-webkit-inner-spin-button {
     box-sizing: border-box;
     /* transform: translateY(-10%);  */
 
-   
-    
-    
-    .proj-title{
+    .proj-title {
         font-size: 2rem;
         color:  rgb(160, 212, 76);
         margin-right: 30%;
     }
-    .set-all-input {
+
+    .set-all-custom-input {
         font-size: 12px;
         /* color:  rgba(47, 75, 8, 0.795) !important;  */
-        background-color: rgba(184, 227, 124, 0.65) !important; 
-        width: 40px;
+        /* background-color: rgba(184, 227, 124, 0.65) !important; 
+        background-color: rgba(184, 227, 124, 0.5) !important;  */
+        width: 42px;
         height: 100% !important;
         border: none !important;
         outline: none !important;
@@ -153,6 +149,30 @@ input[type="number"]::-webkit-inner-spin-button {
         border-radius: 5px !important;
         text-align: center;
         margin-right: 6px; 
+    }
+
+    .spinner-button {
+        font-size: 12px;
+        background-color: rgba(184, 227, 124, 0.65) !important;
+        border: 1px solid rgb(160, 212, 76) !important;
+        border-radius: 5px;
+        padding: 0 6px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .spinner-button:hover {
+        background-color: rgb(140, 192, 66) !important;
+    }
+
+    .spinner-button:active {
+        background-color: rgb(120, 172, 56) !important;
+        transform: scale(0.95); 
     }
 
     .settings-button {
@@ -169,7 +189,6 @@ input[type="number"]::-webkit-inner-spin-button {
             align-items: center;  
             justify-content: center;  
         }
-        
     }
 
     .clear-button {
@@ -182,38 +201,53 @@ input[type="number"]::-webkit-inner-spin-button {
         margin-right: 8px; 
 
         fa-icon {
-            font-size: 8px !important; 
+            font-size: 6px !important; 
             display: flex;
             align-items: center;  
             justify-content: center;  
         }
-        
     }
-
-    
 
     .projection-button {
         cursor: pointer;
         background-color: rgb(160, 212, 76) !important;
         border-radius: 15px;
-        margin-right: 5px;
+        margin-right: 3px;
         padding: 8px 12px;
         color: white;
-        transition: background-color 0.2s ease, transform 0.1s ease; /* Smooth transitions */
+        transition: background-color 0.2s ease, transform 0.1s ease; 
     }
-    
+
     .projection-button:hover, 
     .clear-button:hover {
         background-color: rgb(140, 192, 66) !important; 
     }
-    
+
     .projection-button:active, 
-    .clear-button:active{
+    .clear-button:active {
         background-color: rgb(120, 172, 56) !important; 
         transform: scale(0.95); 
     }
 }
 
+
+/* Apply spin button styling globally but scoped to .set-all-custom-input */
+/* .set-all-custom-input::-webkit-inner-spin-button,
+.set-all-custom-input::-webkit-outer-spin-button {
+    transform: scale(0.8, 1);
+    background-color: rgba(184, 227, 124, 0.65);
+    border-radius: 0 5px 5px 0;
+} */
+
+/* input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+} */
 
 .rd0-container {
     display: inline-flex;
@@ -247,25 +281,24 @@ input[type="number"]::-webkit-inner-spin-button {
     }
 }
 
-
 .custom-input {
     position: absolute !important;
-    top: 10%  !important;
     top: 10% !important;
     width: 40px !important;
     height: 80% !important;
     z-index: 100;
-    
-    /* color: rgb(47, 47, 47) !important; */
-    background-color: rgba(184, 227, 124, 0.65) !important; 
+
+    /* background-color: rgba(184, 227, 124, 0.65) !important;  */
     text-align: center;
-    font-size: inherit; 
-    
-    
+    font-size: inherit;
+
     border: 1px solid rgb(160, 212, 76) !important;
     border-radius: 10% !important;
     outline: none !important;
 }
+
+
+
 
 /* .ppts-cell {
     overflow: hidden !important;
